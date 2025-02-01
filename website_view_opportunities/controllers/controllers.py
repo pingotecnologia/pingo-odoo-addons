@@ -34,7 +34,7 @@ class CustomerPortal(CustomerPortal):
         searchbar_sortings = {
             'date': {'label': _('Open Date'), 'order': 'date_open desc'},
             'name': {'label': _('Opportunity'), 'order': 'name'},
-            'name': {'label': _('Stage'), 'order': 'stage_id.name'},
+            'stage': {'label': _('Stage'), 'order': 'stage_id'},
         }
 
         # default sortby order
@@ -101,7 +101,6 @@ class CustomerPortal(CustomerPortal):
             attachment = file.read()
             attachment_id = Attachments.sudo().create({
                 'name':name,
-                'datas_fname': name,
                 'res_name': name,
                 'type': 'binary',
                 'res_model': 'crm.lead',
@@ -111,4 +110,4 @@ class CustomerPortal(CustomerPortal):
             value = {
                 'attachment' : attachment_id
             }
-        return http.local_redirect("/my/opportunities", value)
+        return request.redirect("/my/opportunities")
